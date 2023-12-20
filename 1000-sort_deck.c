@@ -79,20 +79,20 @@ void insertion_sort_deck_kind(deck_node_t **deck)
 	for (iteration = (*deck)->next; iteration != NULL; iteration = temporary)
 	{
 		temporary = iteration->next;
-		insert = iteration->previous;
+		insert = iteration->prev;
 		while (insert != NULL && insert->card->kind > iteration->card->kind)
 		{
 			insert->next = iteration->next;
 			if (iteration->next != NULL)
-				iteration->next->previous = insert;
-			iteration->previous = insert->previous;
+				iteration->next->prev = insert;
+			iteration->prev = insert->prev;
 			iteration->next = insert;
-			if (insert->previous != NULL)
-				insert->previous->next = iteration;
+			if (insert->prev != NULL)
+				insert->prev->next = iteration;
 			else
 				*deck = iteration;
-			insert->previous = iteration;
-			insert = iteration->previous;
+			insert->prev = iteration;
+			insert = iteration->prev;
 		}
 	}
 }
@@ -108,23 +108,23 @@ void insertion_sort_deck_value(deck_node_t **deck)
 
 	for (iteration = (*deck)->next; iteration != NULL; iteration = temporary)
 	{
-		temporary = iteraration->next;
-		insert = iteration->previous;
+		temporary = iteration->next;
+		insert = iteration->prev;
 		while (insert != NULL &&
 		       insert->card->kind == iteration->card->kind &&
 		       get_value(insert) > get_value(iteration))
 		{
 			insert->next = iteration->next;
 			if (iteration->next != NULL)
-				iteration->next->previous = insert;
-			iteration->previous = insert->previous;
+				iteration->next->prev = insert;
+			iteration->prev = insert->prev;
 			iteration->next = insert;
-			if (insert->previous != NULL)
-				insert->previous->next = iteration;
+			if (insert->prev != NULL)
+				insert->prev->next = iteration;
 			else
 				*deck = iteration;
-			insert->previous = iteration;
-			insert = iteration->previous;
+			insert->prev = iteration;
+			insert = iteration->prev;
 		}
 	}
 }
